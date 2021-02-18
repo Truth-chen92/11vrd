@@ -91,7 +91,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="">首页</a></li>
                 <li th:each="c:${list}"><a th:text="${c.name}" href="">手绘</a></li>
-                
+
                 <li>
                     <form action="">
                         <input type="text" placeholder="Search">
@@ -103,7 +103,11 @@
             </ul>
             <!--右侧列表-->
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="">管理员入口</a></li>
+                <!--th:if判断满足条件时显示元素-->
+                <li th:if="${user}==null"><a href="showlogin">管理员入口</a></li>
+                <li th:if="${user}!=null"><a href="showsend">发布作品</a></li>
+                <li th:if="${user}!=null"><a href="logout">登出</a></li>
+
             </ul>
         </div>
     </nav>
@@ -120,16 +124,8 @@
         </ol>
         <!-- 轮播（Carousel）项目 -->
         <div class="carousel-inner">
-            <div class="item active">
-                <img src="images/banner0.jpg" alt="First slide">
-                <div class="carousel-caption"></div>
-            </div>
-            <div class="item">
-                <img src="images/banner1.jpg" alt="Second slide">
-                <div class="carousel-caption"></div>
-            </div>
-            <div class="item">
-                <img src="images/banner2.jpg" alt="Third slide">
+            <div th:each="b:${blist}" class="item">
+                <img th:src="${b.url}" alt="First slide">
                 <div class="carousel-caption"></div>
             </div>
         </div>
@@ -386,6 +382,7 @@
         //此处代码图片加载完之后会执行
         $(".grid").masonry("layout");//让瀑布流重新计算显示效果  解决图片层叠问题
     });
-
+    // 让轮播图第一个显示
+    $(".item").eq(0).attr("class","item active");
 </script>
 </html>

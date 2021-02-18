@@ -1,7 +1,10 @@
 package cn.tedu.controller;
 
+import cn.tedu.dao.BannerDao;
 import cn.tedu.dao.CategoryDao;
+import cn.tedu.entity.Banner;
 import cn.tedu.entity.Category;
+import cn.tedu.entity.User;
 import cn.tedu.utils.ThUtils;
 import org.thymeleaf.context.Context;
 
@@ -25,7 +28,18 @@ public class HomeServlet extends HttpServlet {
         CategoryDao dao=new CategoryDao();
         List<Category>list = dao.findAll();
         context.setVariable("list",list);
-
+//        创建BannerDao 并调用查询所有Banner
+        BannerDao bDao=new BannerDao();
+        List<Banner>blist = bDao.findAll();
+        context.setVariable("blist",blist);
+//        取出Session里面的用户对象
+        User user=(User)request.getSession().getAttribute("user");
+//        if (user != null) {
+//            System.out.println("登录过");
+//        }else {
+//            System.out.println("没登录过");
+//        }
+        context.setVariable("user",user);
 
         ThUtils.print("home.html",context,response);
     }
