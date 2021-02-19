@@ -90,6 +90,9 @@
             margin: 3px 0 0 0;
             fontSize:14px;
         }
+        .col-md-9{
+            color: #ffc600;
+        }
     </style>
 </head>
 <body>
@@ -128,52 +131,30 @@
 </header>
 
 <section class="container">
-    <!--轮播图开始-->
-    <div id="myCarousel" class="carousel slide">
-        <!-- 轮播（Carousel）指标 -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-        <!-- 轮播（Carousel）项目 -->
-        <div class="carousel-inner">
-            <div th:each="b:${blist}" class="item">
-                <img th:src="${b.url}" alt="First slide">
-                <div class="carousel-caption"></div>
-            </div>
-        </div>
-        <!-- 轮播（Carousel）导航 -->
-        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-    <!--轮播图结束-->
     <!--创建一行3:1-->
     <div class="row">
         <div class="col-md-9">
-            <!--瀑布流开始-->
-            <div class="grid">
-                <div th:each="p:${pList}" class="grid-item">
-                    <a th:href="'detail?id='+${p.id}">
-                        <img class="img-responsive" th:src="${p.url}" alt="">
-                    </a>
-                    <!--蓝色条开始-->
-                    <div class="floatView">
-                        <p th:text="${p.title}"></p>
-                        <span th:text="${p.viewCount}" class="fa fa-eye"></span>
-                        <span th:text="${p.likeCount}" class="fa fa-thumbs-o-up"></span>
-                    </div>
-                    <!--蓝色条结束-->
-                </div>
+<!--           详情开始-->
+            <h2 th:text="${product.title}" class="page-header"></h2>
+            <div>
+                <span th:text="${product.author}+'发布于'+${product.getCreatedString()}"></span>
+<!--                显示浏览量和点赞量-->
+                <span class="pull-right">
+                    <span class="fa fa-eye" th:text="${product.viewCount}"></span>
+                    <span class="fa fa-thumbs-o-up" th:text="${product.likeCount}"></span>
+                </span>
             </div>
-
-            <!--瀑布流结束-->
+<!--            删除按钮和点赞按钮-->
+            <div class="text-center">
+                <a th:href="'like?id='+${product.id}" class="btn btn-info">给作品点赞</a>
+<!--                当user对象有值时显示-->
+                <a th:if="${user}!=null" href="" class="btn btn-danger">删除作品</a>
+            </div>
+<!--            响应式图片 让元素自身居中-->
+            <img th:src="${product.url}" class="img-responsive center-block" alt="">
+<!--            显示作品介绍-->
+            <p th:text="${product.intro}" class="text-center"></p>
+<!--            详情结束-->
         </div>
         <div class="col-md-3">
             <!--浏览最多开始-->

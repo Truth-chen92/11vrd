@@ -1,5 +1,8 @@
 package cn.tedu.entity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Product {
     private int id;
     private String title;
@@ -11,6 +14,11 @@ public class Product {
     private long created;
     private int categoryId;
 
+    public String getCreatedString() {
+        SimpleDateFormat f=new SimpleDateFormat("yyyy年MM月dd日 HH时mm分");
+        Date date = new Date(this.created);
+        return f.format(date);
+    }
     @Override
     public String toString() {
         return "Product{" +

@@ -27,7 +27,8 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        获取传递过来的cid
         String cid=request.getParameter("cid");
-
+//获取传递过来的keyword
+        String keyword=request.getParameter("keyword");
 
         Context context=new Context();
 //        创建CategoryDao 并调用查询所有分类的方法
@@ -50,6 +51,9 @@ public class HomeServlet extends HttpServlet {
         ProductDao pDao=new ProductDao();
         if(cid!=null){//如果cid有值 代表查询的是某分类下作品信息
             List<Product> pList = pDao.findByCid(cid);
+            context.setVariable("pList",pList);
+        }else if(keyword!=null){
+            List<Product> pList = pDao.findByKeyword(keyword);
             context.setVariable("pList",pList);
         }else {
             List<Product> pList = pDao.findAll();

@@ -107,8 +107,8 @@
                 <li th:each="c:${list}"><a th:text="${c.name}" th:href="'home?cid='+${c.id}"></a></li>
 
                 <li>
-                    <form action="">
-                        <input type="text" placeholder="Search">
+                    <form action="home">
+                        <input type="text" name="keyword" placeholder="Search">
                         <button type="submit">
                             <span class="fa fa-search"></span>
                         </button>
@@ -160,7 +160,7 @@
             <!--瀑布流开始-->
             <div class="grid">
                 <div th:each="p:${pList}" class="grid-item">
-                    <a href="">
+                    <a th:href="'detail?id='+${p.id}">
                         <img class="img-responsive" th:src="${p.url}" alt="">
                     </a>
                     <!--蓝色条开始-->
@@ -187,13 +187,13 @@
                     <!-- 左对齐 -->
                     <div class="media">
                         <div class="media-left">
-                            <a href="">
+                            <a th:href="'detail?id='+${p.id}">
                                 <img th:src="${p.url}" class="media-object"
                                      style="width:60px;height: 50px">
                             </a>
                         </div>
                         <div class="media-body">
-                            <a href=""><h4 th:text="${p.title}" class="media-heading"></h4></a>
+                            <a th:href="'detail?id='+${p.id}"><h4 th:text="${p.title}" class="media-heading"></h4></a>
                             <p th:text="${p.intro}"></p>
                         </div>
                     </div>
@@ -211,13 +211,13 @@
                     <!-- 左对齐 -->
                     <div class="media">
                         <div class="media-left">
-                            <a href="">
+                            <a th:href="'detail?id='+${p.id}">
                                 <img th:src="${p.url}" class="media-object"
                                      style="width:60px;height: 50px">
                             </a>
                         </div>
                         <div class="media-body">
-                            <a href=""><h4 th:text="${p.title}" class="media-heading"></h4></a>
+                            <a th:href="'detail?id='+${p.id}"><h4 th:text="${p.title}" class="media-heading"></h4></a>
                             <p th:text="${p.intro}"></p>
                         </div>
                     </div>
