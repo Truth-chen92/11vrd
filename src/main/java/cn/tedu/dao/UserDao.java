@@ -27,4 +27,34 @@ public class UserDao {
         }
         return null;//如果代码执行到这说明没有查询到 登陆失败
     }
+
+    public Boolean check(String username) {
+        try (Connection conn= DBUtils.getConn()
+        ){
+            String sql="select id from vrduser where username=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+
+        }catch (Exception e) {
+        e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void reg(String username, String password) {
+        try (Connection conn= DBUtils.getConn()
+        ){
+            String sql="insert into vrduser values(null,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.executeUpdate();
+
+
+        }catch (Exception e) {
+        e.printStackTrace();
+        }
+    }
 }

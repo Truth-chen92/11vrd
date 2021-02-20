@@ -207,4 +207,34 @@ public class ProductDao {
             e.printStackTrace();
         }
     }
+
+    public void deleteById(String id) {
+        try (Connection conn= DBUtils.getConn()
+        ){
+            String sql="delete from product where id=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, Integer.parseInt(id));
+            ps.executeUpdate();
+
+        }catch (Exception e) {
+        e.printStackTrace();
+        }
+    }
+
+    public String findUrlById(String id) {
+        try (Connection conn= DBUtils.getConn()
+        ){
+            String sql="select url from product where id=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, Integer.parseInt(id));
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String url = rs.getString(1);
+                return url;
+            }
+        }catch (Exception e) {
+        e.printStackTrace();
+        }
+        return null;
+    }
 }

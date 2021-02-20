@@ -120,6 +120,7 @@
                 <!--th:if判断满足条件时显示元素-->
                 <li th:if="${user}==null"><a href="showlogin">管理员入口</a></li>
                 <li th:if="${user}!=null"><a href="showsend">发布作品</a></li>
+                <li th:if="${user}!=null"><a href="showbanner">轮播图</a></li>
                 <li th:if="${user}!=null"><a href="logout">登出</a></li>
 
             </ul>
@@ -132,9 +133,9 @@
     <div id="myCarousel" class="carousel slide">
         <!-- 轮播（Carousel）指标 -->
         <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
+        <!--在使用th:each语法进行遍历时 自动创建一个变量名为State对象
+            这个对象里装着下标-->
+            <li th:each="b:${blist}" data-target="#myCarousel" th:attr="data-slide-to=${bStat.index}"></li>
         </ol>
         <!-- 轮播（Carousel）项目 -->
         <div class="carousel-inner">
@@ -267,5 +268,7 @@
     },function() {//移出
         $(this).children("div").stop().fadeOut(500);
     })
+    // 让轮播图里第一个图标变成实心圆
+    $("ol>li").eq(0).attr("class","active");
 </script>
 </html>

@@ -148,7 +148,7 @@
             <div class="text-center">
                 <a th:href="'like?id='+${product.id}" class="btn btn-info">给作品点赞</a>
 <!--                当user对象有值时显示-->
-                <a th:if="${user}!=null" href="" class="btn btn-danger">删除作品</a>
+                <a th:if="${user}!=null" th:href="'delete?id='+${product.id}" href=" " class="btn btn-danger">删除作品</a>
             </div>
 <!--            响应式图片 让元素自身居中-->
             <img th:src="${product.url}" class="img-responsive center-block" alt="">

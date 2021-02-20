@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text"  placeholder="请输入身高（米）">
+<input type="text"  placeholder="请输入体重（千克）">
+<h3>测试结果</h3>
+<script src="bootstrap3/jquery.min.js"></script>
+<script>
+    // 给第二个文本框添加失去焦点事件
+    $("input:last").blur(function() {
+        // 发出异步请求
+        $.ajax({
+            type:"get",
+            url:"bmi",
+            data:"h="+$("input:first").val()+"&w="+$("input:last").val(),
+            success : function(msg) {
+                $("h3").text(msg);
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

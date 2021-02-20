@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>0</h1>
+<h2>我是h2</h2>
+<!--引入jQuery-->
+<script src="bootstrap3/jquery.min.js"></script>
+<script>
+    let count=0;
+    setInterval(function() {
+        $("h1").text(count++);
+    },500);
+    // 5秒后后出异步请求
+    setTimeout(function() {
+        // 发出异步请求
+        $.ajax({
+            type:"get",//请求方式 get或post
+            url:"hello",//请求地址 localhost:8080/hello
+            data:"info=abc&msg=xxx",//
+            success : function(str) {//str代表服务器返回的数据
+                // alert(str);//弹出服务器返回的数据
+                $("h2").text(str);
+            }
+        })
+
+    },2000);
+</script>
+</body>
+</html>
