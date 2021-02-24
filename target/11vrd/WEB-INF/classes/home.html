@@ -173,8 +173,8 @@
                     <!--蓝色条结束-->
                 </div>
             </div>
-
             <!--瀑布流结束-->
+            <button id="loadmore" class="btn btn-success center-block">加载更多</button>
         </div>
         <div class="col-md-3">
             <!--浏览最多开始-->
@@ -270,5 +270,46 @@
     })
     // 让轮播图里第一个图标变成实心圆
     $("ol>li").eq(0).attr("class","active");
+
+    // 给加载更多按钮添加点击事件
+    $("#loadmore").click(function() {
+        // 发出异步请求
+        $.ajax({
+            type:"get",
+            url:"loadmore",
+            data:"count="+$(".grid-item").length,
+            success : function(msg) {
+                let json=JSON.parse(msg);
+                for (let i = 0; i < json.length; i++){
+                    let product =json[i];
+                    // 创建瀑布流组合
+                    let item=$('<div class="grid-item"><a><img class="img-responsive" alt=""></a><div class="floatView"><p></p><span class="fa fa-eye"></span><span class="fa fa-thumbs-o-up"></span></div></div>');
+                    // 给元素组合里面的元素赋值
+                    item.find("img").attr("src",product.url);
+                    item.find("p").text(product.title);
+                    item.find("span").eq(0).text(product.viewCount);
+                    item.find("span").eq(1).text(product.likeCount);
+                    item.find("a").attr("href","detail?id="+product.id);
+                    // 把瀑布流元素添加到页面中
+                    $(".grid").append(item);
+                    $(".grid").masonry("appended",item);//通知瀑布流框架 更新布局
+                    $(".grid").imagesLoaded().progress(function() {
+                        $(".grid").imagesLoaded().progress(function () {
+                            //此处代码图片加载完之后会执行
+                            $(".grid").masonry("layout");//让瀑布流重新计算显示效果  解决图片层叠问题
+                        });
+                        item.hover(function() {
+                            $(this).children("div").stop().fadeIn(500);
+                        },function() {
+                            $(this).children("div").stop().fadeOut(500);
+                        })
+                    })
+
+                }
+            }
+        })
+
+    })
+
 </script>
 </html>

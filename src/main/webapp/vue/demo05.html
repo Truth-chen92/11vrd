@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="mydiv">
+<!--    v-for遍历-->
+    <div v-for="(p,i) in persons">
+        <p v-text="p.name"></p>
+        <p v-text="p.age"></p>
+        <p v-text="p.gender"></p>
+    </div>
+</div>
+<script src="../bootstrap3/jquery.min.js"></script>
+<script src="../js/vue.js"></script>
+<script>
+    let v=new Vue({
+        el:"#mydiv",
+        data:{
+            persons:[{name:"张三",age:18,gender:"男"},{name:"李四",age:28,gender:"女"},
+                {name:"王五",age:38,gender:"男"}]
+        },
+
+    })
+
+
+</script>
+
+</body>
+</html>

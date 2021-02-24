@@ -34,7 +34,7 @@ public class ProductDao {
         ArrayList<Product>list = new ArrayList<>();
         try (Connection conn= DBUtils.getConn()
         ){
-            String sql="select id,title,author,intro,url,viewCount,likeCount,created,category_id from product";
+            String sql="select id,title,author,intro,url,viewCount,likeCount,created,category_id from product limit 0,3";
             Statement s = conn.createStatement();
             ResultSet rs = s.executeQuery(sql);
             while (rs.next()) {
@@ -236,5 +236,31 @@ public class ProductDao {
         e.printStackTrace();
         }
         return null;
+    }
+
+    public List<Product> loadMore(String count) {
+        ArrayList<Product>list = new ArrayList<>();
+        try (Connection conn= DBUtils.getConn()
+        ){
+            String sql="select id,title,author,intro,url,viewCount,likeCount,created,category_id from product limit ?,3";
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ps.setInt(1, Integer.parseInt(count));
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String title = rs.getString(2);
+                String author = rs.getString(3);
+                String intro = rs.getString(4);
+                String url=rs.getString(5);
+                int viewCount=rs.getInt(6);
+                int likeCount=rs.getInt(7);
+                long created = rs.getLong(8);
+                int categoryId=rs.getInt(9);
+                list.add(new Product(id,title,author,intro,url,viewCount, likeCount,created,categoryId));
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

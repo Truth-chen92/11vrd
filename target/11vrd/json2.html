@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="bootstrap3/jquery.min.js"></script>
+<script>
+    //发出异步请求
+    $.ajax({
+        type:"get",
+        url:"hellojson",
+        data:" ",
+        success:function(msg) {
+            console.log(msg);
+            let json=JSON.parse(msg);
+            // 遍历json数组
+            for (let i = 0; i < json.length; i++) {
+                let product=json[i];
+                // 创建标签
+                let nameh3=$("<h3></h3>");
+                nameh3.text("作品名字："+product.title);
+                $("body").append(nameh3);
+            }
+
+        }
+    })
+</script>
+</body>
+</html>

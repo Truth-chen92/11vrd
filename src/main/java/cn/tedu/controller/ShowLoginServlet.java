@@ -33,8 +33,6 @@ public class ShowLoginServlet extends HttpServlet {
                 }else if (name.equals("password")) {
                     context.setVariable("password",value);
                 }//判断是密码 也保存到容器中
-
-
             }
         }
 

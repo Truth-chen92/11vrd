@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="button" value="加载所有作品信息">
+<div id="mydiv">
+    <div v-for="(p,i) in products">
+        <h3 v-text="p.title">标题</h3>
+        <p v-text="p.author">作者名字</p>
+        <img v-bind:src="p.url" alt="">
+    </div>
+</div>
+<script src="bootstrap3/jquery.min.js"></script>
+<script src="js/vue.js"></script>
+<script>
+
+        let v=new Vue({
+            el:"#mydiv",
+            data:{
+                products:[]
+            }
+        })
+
+    $("input").click(function() {
+        $.ajax({
+            type:"get",
+            url:"/hellojson",
+            data:"",
+            success : function(msg) {
+                //将从服务返回的json字符串转成json数组并且赋值给vue里的变量
+                v.products=JSON.parse(msg);
+            }
+        })
+    })
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="mydiv">
+    <h3 v-text="msg"></h3>
+<!--    v-model:让文本框的value属性和变量进行绑定-->
+    <input v-model="msg" type="text">
+<!--    v-bind 让元素里面的内容和变量进行绑定-->
+    <h1 v-bind:style="{'color':color}">属性测试</h1>
+</div>
+<script src="../bootstrap3/jquery.min.js"></script>
+<script src="../js/vue.js"></script>
+<script>
+    let v=new Vue({
+        el:"#mydiv",
+        data:{
+            msg:"测试文本",color:"red"
+        }
+    })
+
+
+</script>
+
+</body>
+</html>

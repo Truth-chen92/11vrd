@@ -2,6 +2,7 @@ package cn.tedu.controller;
 
 import cn.tedu.dao.CategoryDao;
 import cn.tedu.entity.Category;
+import cn.tedu.entity.User;
 import cn.tedu.utils.ThUtils;
 import org.thymeleaf.context.Context;
 
@@ -20,7 +21,14 @@ public class ShowSendServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        查询出所有分类
+//        取出Session中的用户对象 判断是否登录
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            response.sendRedirect("/showlogin");
+            return;
+        }
+
+        //        查询出所有分类
         CategoryDao dao=new CategoryDao();
         List<Category>list = dao.findAll();
 //        查询到的所有分类信息装进容器中

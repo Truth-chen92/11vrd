@@ -20,8 +20,6 @@ public class UserDao {
                 int id=rs.getInt(1);
                 return new User(id,username, password);
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="mydiv">
+    <h3>商品数量：{{count}}</h3>
+    <h3>{{info}}</h3>
+<!--    v-text 让元素的文本内容和vue中的变量进行绑定
+        相比{{}}格式 可避免出现闪烁问题-->
+    <h3 v-text="info"></h3>
+    <div v-html="info"></div>
+</div>
+<input type="submit" value="添加">
+
+<script src="../bootstrap3/jquery.min.js"></script>
+<!--引入vue框架-->
+<script src="../js/vue.js"></script>
+<script>
+    // 创建Vue对象
+    let v= new Vue({
+        el:"#mydiv",//设置通过vue操作元素的选择器
+        data:{count:0,info:"<i>hello vue</i>"}
+    })
+    $("input").click(function() {
+        v.count++;//修改Vue对象中的变量 由于此变量和页面元素内容进行了绑定 只要变量改变 页面也会跟着改变
+    })
+</script>
+
+</body>
+</html>
